@@ -1,0 +1,14 @@
+---
+- name: "Playbook to Add Key to EC2 Instances"
+  hosts: 174.129.118.45
+  vars:
+    - status : "present"
+    - key : "~/.ssh/id_rsa.ansible"
+
+  tasks:
+
+  - name: "Copy the authorized key file from"
+    authorized_key:
+      user: "{{ansible_user}}"
+      state: "{{status}}"
+      key: "{{ lookup('file', '{{ key }}')}}"
